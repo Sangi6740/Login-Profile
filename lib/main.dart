@@ -28,6 +28,26 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool _obscureText = true;
+  final _formkey = GlobalKey<FormState>;
+  final TextEditingController email = TextEditingController();
+  final TextEditingController pass = TextEditingController();
+
+  String? validateemail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Email cannot be empty!';
+    }
+    return null;
+  }
+
+  String? validatepass(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Password cannot be empty!';
+    }
+    if (value.length < 6) {
+      return 'Password cannot be less than 6 characters.';
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,27 +64,33 @@ class _LoginState extends State<Login> {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20, color: Colors.green),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 40),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
-                      vertical: 18,
-                      horizontal: 16,
-                    ),
-                    prefixIcon: Icon(Icons.email),
-                    hintText: "Email",
-                    labelText: "Email",
+              Form(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 40),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
 
-                    labelStyle: TextStyle(color: Colors.black),
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 12,
+                        horizontal: 10,
+                      ),
+                      prefixIcon: Icon(Icons.email),
+                      hintText: "Email",
+                      labelText: "Email",
 
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
+                      labelStyle: TextStyle(color: Colors.black),
 
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
                     ),
+                    validator: validateemail,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                 ),
               ),
@@ -72,14 +98,18 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.only(top: 20),
                 child: TextFormField(
                   obscureText: _obscureText,
+
                   decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+
                     contentPadding: EdgeInsets.symmetric(
-                      vertical: 18,
-                      horizontal: 16,
+                      vertical: 12,
+                      horizontal: 10,
                     ),
                     prefixIcon: Icon(Icons.lock),
                     hintText: "Password",
                     labelText: "Password",
+
                     labelStyle: TextStyle(color: Colors.black),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black),
@@ -99,6 +129,8 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
+                  validator: validatepass,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                 ),
               ),
 
