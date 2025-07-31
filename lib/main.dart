@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login/signup.dart';
+import 'package:flutter/gestures.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,6 +36,7 @@ class _LoginState extends State<Login> {
         child: Container(
           height: 420,
           width: 340,
+
           child: Column(
             children: [
               Text(
@@ -50,9 +52,9 @@ class _LoginState extends State<Login> {
                       vertical: 18,
                       horizontal: 16,
                     ),
-                    prefixIcon: Icon(Icons.person_2),
-                    hintText: "Username",
-                    labelText: "Username",
+                    prefixIcon: Icon(Icons.email),
+                    hintText: "Email",
+                    labelText: "Email",
 
                     labelStyle: TextStyle(color: Colors.black),
 
@@ -115,9 +117,31 @@ class _LoginState extends State<Login> {
                 child: Text("Login"),
               ),
 
-              SizedBox(height: 20),
+              SizedBox(height: 10),
 
-              Text("Do not have an account? Click here to Sign Up!"),
+              RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black, fontSize: 16),
+                  children: [
+                    TextSpan(text: 'Do not have an account? '),
+                    TextSpan(
+                      text: 'Sign Up',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Signup()),
+                          );
+                        },
+                    ),
+                    TextSpan(text: ' to continue.'),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
